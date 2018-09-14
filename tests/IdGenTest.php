@@ -3,6 +3,8 @@
 namespace WuJunze\IdGen\Tests;
 
 use Wujunze\IdGen\IdGen;
+use function WuJunze\IdGen\get_age_by_birthday;
+use function WuJunze\IdGen\get_format_time;
 
 class IdGenTest extends TestCase
 {
@@ -25,68 +27,68 @@ class IdGenTest extends TestCase
     {
         $uuid = IdGen::import('00000000-0000-0000-0000-000000000000');
         $this->assertInstanceOf('WuJunze\Idgen\IdGen', $uuid);
-        $this->assertEquals('00000000-0000-0000-0000-000000000000', (string) $uuid);
+        $this->assertEquals('00000000-0000-0000-0000-000000000000', (string)$uuid);
     }
 
     public function testGenerationOfValidUuidViaRegex()
     {
         $uuid = IdGen::generate(1);
-        $this->assertRegExp('~' . IdGen::VALID_UUID_REGEX . '~', (string)$uuid);
+        $this->assertRegExp('~'.IdGen::VALID_UUID_REGEX.'~', (string)$uuid);
 
         $uuid = IdGen::generate(3, 'example.com', IdGen::NS_DNS);
-        $this->assertRegExp('~' . IdGen::VALID_UUID_REGEX . '~', (string)$uuid);
+        $this->assertRegExp('~'.IdGen::VALID_UUID_REGEX.'~', (string)$uuid);
 
         $uuid = IdGen::generate(4);
-        $this->assertRegExp('~' . IdGen::VALID_UUID_REGEX . '~', (string)$uuid);
+        $this->assertRegExp('~'.IdGen::VALID_UUID_REGEX.'~', (string)$uuid);
 
         $uuid = IdGen::generate(5, 'example.com', IdGen::NS_DNS);
-        $this->assertRegExp('~' . IdGen::VALID_UUID_REGEX . '~', (string)$uuid);
+        $this->assertRegExp('~'.IdGen::VALID_UUID_REGEX.'~', (string)$uuid);
     }
-    
+
     public function testGenerationOfValidUuidViaValidator()
     {
         $uuid = IdGen::generate(1);
         $this->assertTrue(IdGen::validate($uuid->string));
-        
+
         $uuid = IdGen::generate(3, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->string));
-        
+
         $uuid = IdGen::generate(4);
         $this->assertTrue(IdGen::validate($uuid->string));
-        
+
         $uuid = IdGen::generate(5, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->string));
-    
+
         $uuid = IdGen::generate(1);
         $this->assertTrue(IdGen::validate($uuid->bytes));
-    
+
         $uuid = IdGen::generate(3, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->bytes));
-    
+
         $uuid = IdGen::generate(4);
         $this->assertTrue(IdGen::validate($uuid->bytes));
-    
+
         $uuid = IdGen::generate(5, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->bytes));
-    
+
         $uuid = IdGen::generate(1);
         $this->assertTrue(IdGen::validate($uuid->urn));
-        
+
         $uuid = IdGen::generate(3, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->urn));
-    
+
         $uuid = IdGen::generate(4);
         $this->assertTrue(IdGen::validate($uuid->urn));
-    
+
         $uuid = IdGen::generate(5, 'example.com', IdGen::NS_DNS);
         $this->assertTrue(IdGen::validate($uuid->urn));
-        
+
         $this->assertTrue(IdGen::validate(IdGen::generate(1)));
-        
+
         $this->assertTrue(IdGen::validate(IdGen::generate(3, 'example.com', IdGen::NS_DNS)));
-        
+
         $this->assertTrue(IdGen::validate(IdGen::generate(4)));
-        
+
         $this->assertTrue(IdGen::validate(IdGen::generate(5, 'example.com', IdGen::NS_DNS)));
     }
 
@@ -193,7 +195,7 @@ class IdGenTest extends TestCase
 
     public function testGenIdByTypeShareKey()
     {
-        $genId = IdGen::genIdByTypeShareKey(6,89);
+        $genId = IdGen::genIdByTypeShareKey(6, 89);
 
         $this->assertInternalType('int', $genId);
         $this->assertGreaterThanOrEqual(16, strlen($genId));
@@ -202,9 +204,9 @@ class IdGenTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGenIdByTypeShareKeyException ()
+    public function testGenIdByTypeShareKeyException()
     {
-        $genId = IdGen::genIdByTypeShareKey(21,89);
+        $genId = IdGen::genIdByTypeShareKey(21, 89);
         $this->assertInternalType('int', $genId);
         $this->assertGreaterThanOrEqual(16, strlen($genId));
     }
@@ -246,4 +248,22 @@ class IdGenTest extends TestCase
         $this->assertInternalType('int', $code);
         $this->assertGreaterThanOrEqual(17, strlen($code));
     }
+
+    public function testGetFormatTime()
+    {
+        $dateTime = get_format_time();
+        $this->assertNotEmpty($dateTime);
+        $this->assertInternalType('string', $dateTime);
+    }
+
+    public function testGetAgeByBirthday()
+    {
+        $age = get_age_by_birthday(19930806);
+        $this->assertInternalType('numeric', $age);
+        $this->assertEquals(date('Y') - 1993, $age);
+
+        $ageEmpty = get_age_by_birthday(0);
+        $this->assertEmpty($ageEmpty);
+    }
+
 }
