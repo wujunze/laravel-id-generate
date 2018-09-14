@@ -1,7 +1,7 @@
 # Laravel IdGen
 
 [![Total Downloads](https://poser.pugx.org/wujunze/laravel-id-generate/downloads.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
-[![Build Status](https://secure.travis-ci.org/wujunze/laravel-id-generate.png?branch=master)](http://travis-ci.org/wujunze/laravel-id-generate)
+[![Build Status](https://travis-ci.org/wujunze/laravel-id-generate.svg?branch=master)](https://travis-ci.org/wujunze/laravel-id-generate)
 [![codecov.io](http://codecov.io/github/wujunze/laravel-id-generate/coverage.svg?branch=master)](http://codecov.io/github/wujunze/laravel-id-generate?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/wujunze/laravel-id-generate/v/stable.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
 [![Licence](https://poser.pugx.org/wujunze/laravel-id-generate/license.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
