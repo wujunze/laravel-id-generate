@@ -1,10 +1,11 @@
 # Laravel IdGen
 
-[![Total Downloads](https://poser.pugx.org/wujunze/laravel-id-generate/downloads.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
 [![Build Status](https://travis-ci.org/wujunze/laravel-id-generate.svg?branch=master)](https://travis-ci.org/wujunze/laravel-id-generate)
 [![codecov.io](http://codecov.io/github/wujunze/laravel-id-generate/coverage.svg?branch=master)](http://codecov.io/github/wujunze/laravel-id-generate?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/wujunze/laravel-id-generate/v/stable.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
 [![Licence](https://poser.pugx.org/wujunze/laravel-id-generate/license.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
+[![Total Downloads](https://poser.pugx.org/wujunze/laravel-id-generate/downloads.svg)](https://packagist.org/packages/wujunze/laravel-id-generate)
+
 
 Laravel package to generate and to validate a UUID according to the RFC 4122 standard. Only support for version 1, 3, 4 and 5 UUID are built-in. and generate number id, generate primary key
 

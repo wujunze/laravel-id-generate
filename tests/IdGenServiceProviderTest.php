@@ -9,9 +9,7 @@
 namespace WuJunze\IdGen\Tests;
 
 
-use Wujunze\IdGen\IdGen;
 use Wujunze\IdGen\IdGenServiceProvider;
-use Validator;
 
 class IdGenServiceProviderTest extends TestCase
 {
