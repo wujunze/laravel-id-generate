@@ -186,9 +186,64 @@ class IdGenTest extends TestCase
     public function testSampleKey()
     {
         $id = IdGen::getSamplePk();
+
         $this->assertInternalType('int', $id);
         $this->assertGreaterThanOrEqual(13, strlen($id));
     }
 
+    public function testGenIdByTypeShareKey()
+    {
+        $genId = IdGen::genIdByTypeShareKey(6,89);
 
+        $this->assertInternalType('int', $genId);
+        $this->assertGreaterThanOrEqual(16, strlen($genId));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGenIdByTypeShareKeyException ()
+    {
+        $genId = IdGen::genIdByTypeShareKey(21,89);
+        $this->assertInternalType('int', $genId);
+        $this->assertGreaterThanOrEqual(16, strlen($genId));
+    }
+
+    public function testGenIdByType()
+    {
+        $typeId = IdGen::genIdByType(8);
+        $this->assertInternalType('int', $typeId);
+        $this->assertGreaterThanOrEqual(9, strlen($typeId));
+
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGenIdByTypeException()
+    {
+        $typeId = IdGen::genIdByType(18);
+        $this->assertInternalType('int', $typeId);
+        $this->assertGreaterThanOrEqual(9, strlen($typeId));
+
+    }
+
+
+    public function testGenCode()
+    {
+        $code = IdGen::genCode(9, 9, 888);
+        $this->assertInternalType('int', $code);
+        $this->assertGreaterThanOrEqual(17, strlen($code));
+    }
+
+
+    /**
+     * @expectedException  \InvalidArgumentException
+     */
+    public function testGenCodeException()
+    {
+        $code = IdGen::genCode(9, 9, 88888);
+        $this->assertInternalType('int', $code);
+        $this->assertGreaterThanOrEqual(17, strlen($code));
+    }
 }
