@@ -171,12 +171,14 @@ public function edit(Model $model)
 Just use like any other Laravel validator.
 
 ``'uuid-field' => 'uuid'``
+``'uuid-field' => 'gen_id'``
 
 Or create a validator from scratch. In the example an IdGen object in validated. You can also validate strings `$uuid->string`, the URN `$uuid->urn` or the binary value `$uuid->bytes`
 
 ```php
 $uuid = IdGen::generate();
-$validator = Validator::make(['uuid' => $uuid], ['uuid' => 'uuid']);
+$genId=  IdGen::getSamplePk();
+$validator = Validator::make(['uuid' => $uuid], ['uuid' => 'uuid'], ['gen_id' => $genId]);
 dd($validator->passes());
 ```
 
