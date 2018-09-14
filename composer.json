@@ -1,0 +1,55 @@
+{
+    "name": "wujunze/laravel-id-generate",
+    "description": "Laravel package to generate and to validate a UUID according to the RFC 4122 standard. Only support for version 1, 3, 4 and 5 UUID are built-in. and generate number id, generate primary key",
+    "type": "library",
+    "keywords": [
+        "UUID RFC4122",
+        "php",
+        "uuid",
+        "primary key"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wujunze",
+            "email": "itwujunze@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0",
+        "codedungeon/phpunit-result-printer": "^0.19.10",
+        "fzaninotto/faker": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wujunze\\IdGen\\": "src/"
+        },
+        "files": [
+            "src/Helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WuJunze\\IdGen\\Tests\\": "tests/"
+        }
+    },
+    "support": {
+        "source": "https://github.com/webpatser/laravel-uuid",
+        "issues": "https://github.com/webpatser/laravel-uuid/issues"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wujunze\\IdGen\\IdGenServiceProvider"
+            ],
+            "aliases": {
+                "Uuid": "Wujunze\\IdGen"
+            }
+        }
+    }
+}
