@@ -266,4 +266,50 @@ class IdGenTest extends TestCase
         $this->assertEmpty($ageEmpty);
     }
 
+    public function testSnowFlake()
+    {
+        $snowFlakeId = IdGen::snowFlakeId();
+        $this->assertInternalType('numeric', $snowFlakeId);
+    }
+
+    public function testSnowFlakeIdRepeat()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100000; $i++) {
+            $id = IdGen::snowFlakeId(10);
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+
+        $this->assertEquals(100000, count($all));
+        $this->assertEmpty($exits);
+    }
+
+    /**
+     * @expectedException \LogicException
+     */
+    public function testSnowFlakeIdWorkIdException()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100; $i++) {
+            $id = IdGen::snowFlakeId(18);
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+
+        $this->assertEquals(100000, count($all));
+        $this->assertEmpty($exits);
+    }
+
+
 }

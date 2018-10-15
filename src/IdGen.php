@@ -62,7 +62,7 @@ class IdGen extends Uuid
      *
      * @param int $type type max support 16 types
      * @param int $source source max support 16 types
-     * @param int $sequence  sequence max support 16383 types
+     * @param int $sequence sequence max support 16383 types
      *
      * @return int
      *
@@ -83,6 +83,15 @@ class IdGen extends Uuid
         }
 
         return ((((((get_current_ms() - (self::COUPON_BASE_TS * 1000)) << 4) | $type) << 4) | $source) << 14) | $sequence;
+    }
+
+    /**
+     * @param int $workId
+     * @return int
+     */
+    public static function snowFlakeId($workId = 1)
+    {
+        return (new SnowFlake($workId))->nextId();
     }
 
     /**

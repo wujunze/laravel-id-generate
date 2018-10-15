@@ -99,6 +99,11 @@ Generate  code
 ```php
  IdGen::genCode(9, 9, 888);
 ```
+
+Generate  SnowFlake Id  
+```php
+ IdGen::snowFlakeId();
+```
 	
 ### Some magic features
 
@@ -186,3 +191,8 @@ dd($validator->passes());
 ## Notes
 
 Full details on the UUID specification can be found on [http://tools.ietf.org/html/rfc4122](http://tools.ietf.org/html/rfc4122).
+
+[Snowflake](https://github.com/twitter-archive/snowflake) is a network service for generating unique ID numbers at high scale with some simple guarantees.  
+## Inspire And Thanks
+
+[Snowflake php implement](https://blog.csdn.net/envon123/article/details/52953872)
