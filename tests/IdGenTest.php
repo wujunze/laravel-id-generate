@@ -290,4 +290,26 @@ class IdGenTest extends TestCase
         $this->assertEmpty($exits);
     }
 
+    /**
+     * @expectedException \LogicException
+     */
+    public function testSnowFlakeIdWorkIdException()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100; $i++) {
+            $id = IdGen::snowFlakeId(18);
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+
+        $this->assertEquals(100000, count($all));
+        $this->assertEmpty($exits);
+    }
+
+
 }

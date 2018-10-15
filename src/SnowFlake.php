@@ -8,7 +8,7 @@ namespace Wujunze\IdGen;
  *
  * ID 生成策略
  * 毫秒级时间41位+机器ID 10位+毫秒内序列12位。
- * 0           41     51     64
+ * 0        41     51     64
  *  +-----------+------+------+
  *  |time       |pc    |inc   |
  *  +-----------+------+------+
@@ -99,7 +99,7 @@ class SnowFlake
      */
     public function timeGen()
     {
-        //获得当前时间戳
+        //get current timestamp
         $time = explode(' ', microtime());
         $time2 = substr($time[0], 2, 3);
 
