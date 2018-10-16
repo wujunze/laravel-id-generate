@@ -3,6 +3,7 @@
 namespace WuJunze\IdGen\Tests;
 
 use Wujunze\IdGen\IdGen;
+use Wujunze\IdGen\SnowFlake;
 use function WuJunze\IdGen\get_age_by_birthday;
 use function WuJunze\IdGen\get_format_time;
 
@@ -234,9 +235,29 @@ class IdGenTest extends TestCase
     public function testGenCode()
     {
         $code = IdGen::genCode(9, 9, 888);
+
+        $this->assertTrue(IdGen::IdValidate($code));
         $this->assertInternalType('int', $code);
         $this->assertGreaterThanOrEqual(17, strlen($code));
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGenCodeTypeException ()
+    {
+        $code = IdGen::genCode(16, 9, 888);
+    }
+
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGenCodeResourceException ()
+    {
+        $code = IdGen::genCode(10, 16, 888);
+    }
+
 
 
     /**
@@ -290,6 +311,24 @@ class IdGenTest extends TestCase
         $this->assertEmpty($exits);
     }
 
+
+    public function testSimplePKRepeat()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100000; $i++) {
+            $id = IdGen::getSamplePk();
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+        $this->assertNotEmpty($all);
+        $this->assertNotEmpty($exits);
+    }
+
     /**
      * @expectedException \LogicException
      */
@@ -311,5 +350,23 @@ class IdGenTest extends TestCase
         $this->assertEmpty($exits);
     }
 
+    public function testTilNextMillis()
+    {
+        $snowFlake = new SnowFlake();
+        $timestamp = $snowFlake->tilNextMillis(((int)$snowFlake->timeGen()) + 3);
 
+        $this->assertNotEmpty($timestamp);
+        $this->assertInternalType('numeric', $timestamp);
+    }
+
+    public function testNextIdException ()
+    {
+
+        $mockery = \Mockery::mock(SnowFlake::class);
+
+        $mockery->shouldReceive('timeGen')
+            ->andReturn(-2);
+
+        $this->assertTrue(true);
+    }
 }
