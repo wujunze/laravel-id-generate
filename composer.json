@@ -44,8 +44,8 @@
         ]
     },
     "support": {
-        "source": "https://github.com/webpatser/laravel-uuid",
-        "issues": "https://github.com/webpatser/laravel-uuid/issues"
+        "source": "https://github.com/wujunze/laravel-id-generate",
+        "issues": "https://github.com/wujunze/laravel-id-generate/issues"
     },
     "extra": {
         "laravel": {
