@@ -95,6 +95,27 @@ class IdGen extends Uuid
     }
 
     /**
+     * gen guid in php multi process
+     *
+     * @param int $machineId 0 - 63
+     * @return int  length 18
+     */
+    public static function Guid($machineId = 0)
+    {
+        if ($machineId == 0) {
+            // only  on Linux System
+            $localIP = getHostByName(getHostName());
+            $machineId = substr($localIP, -2, 2);
+        }
+
+        if (!is_numeric($machineId)) {
+            throw new \InvalidArgumentException('machineId must be numeric');
+        }
+
+        return Guid::getGenerator()->generate($machineId);
+    }
+
+    /**
      * @param int $id
      * @return bool
      */
