@@ -408,7 +408,7 @@ class IdGenTest extends TestCase
         $exits = [];
 
         for ($i = 0; $i < 100000; $i++) {
-            $id = IdGen::Guid(23);
+            $id = IdGen::genGuid(23);
             if (in_array($id, $all)) {
                 $exits[] = $id;
             } else {

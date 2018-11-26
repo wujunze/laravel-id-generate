@@ -94,13 +94,14 @@ class IdGen extends Uuid
         return (new SnowFlake($workId))->nextId();
     }
 
+
     /**
      * gen guid in php multi process
      *
      * @param int $machineId 0 - 63
      * @return int  length 18
      */
-    public static function Guid($machineId = 0)
+    public static function genGuid($machineId = 0)
     {
         if ($machineId == 0) {
             // only  on Linux System
