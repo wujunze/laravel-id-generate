@@ -2,6 +2,7 @@
 
 namespace WuJunze\IdGen\Tests;
 
+use Wujunze\IdGen\Guid;
 use Wujunze\IdGen\IdGen;
 use Wujunze\IdGen\SnowFlake;
 use function WuJunze\IdGen\get_age_by_birthday;
@@ -244,7 +245,7 @@ class IdGenTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGenCodeTypeException ()
+    public function testGenCodeTypeException()
     {
         $code = IdGen::genCode(16, 9, 888);
     }
@@ -253,11 +254,10 @@ class IdGenTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testGenCodeResourceException ()
+    public function testGenCodeResourceException()
     {
         $code = IdGen::genCode(10, 16, 888);
     }
-
 
 
     /**
@@ -359,7 +359,7 @@ class IdGenTest extends TestCase
         $this->assertInternalType('numeric', $timestamp);
     }
 
-    public function testNextIdException ()
+    public function testNextIdException()
     {
 
         $mockery = \Mockery::mock(SnowFlake::class);
@@ -368,5 +368,55 @@ class IdGenTest extends TestCase
             ->andReturn(-2);
 
         $this->assertTrue(true);
+    }
+
+    public function testGuid()
+    {
+        $machineId = 23;
+        $guid = Guid::getGenerator();
+        $id1 = $guid->generate($machineId);
+        $id2 = $guid->generate($machineId);
+
+        $this->assertInternalType('numeric', $id1);
+        $this->assertInternalType('numeric', $id2);
+        $this->assertNotEquals($id1, $id2);
+
+    }
+
+    public function testGuidRepeat()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100000; $i++) {
+            $guid = Guid::getGenerator();
+            $id = $guid->generate(12);
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+
+        $this->assertEquals(100000, count($all));
+        $this->assertEmpty($exits);
+    }
+
+    public function testGenGuid()
+    {
+        $all = [];
+        $exits = [];
+
+        for ($i = 0; $i < 100000; $i++) {
+            $id = IdGen::Guid(23);
+            if (in_array($id, $all)) {
+                $exits[] = $id;
+            } else {
+                $all[] = $id;
+            }
+        }
+
+        $this->assertEquals(100000, count($all));
+        $this->assertEmpty($exits);
     }
 }
